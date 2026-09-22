@@ -138,7 +138,65 @@ st.info("(여기에 내용을 직접 작성해 주세요.)")
 st.divider()
 
 # ==============================================================
+# 그래프 4. 개봉일 스크린수와 총 관객의 관계 (산점도)
+# ==============================================================
+st.header("그래프 4. 개봉일 스크린수와 총 관객의 관계")
+
+fig4 = px.scatter(
+    df,
+    x="first_scrn",
+    y="total_audi",
+    color="genre",
+    hover_name="movieNm",
+)
+fig4.update_traces(
+    hovertemplate="<b>%{hovertext}</b><br>개봉일 스크린수: %{x:,}관<br>총 관객: %{y:,}명<extra></extra>",
+)
+fig4.update_layout(
+    margin=dict(t=20, b=20, l=20, r=20),
+    xaxis_title="개봉일 스크린수",
+    yaxis_title="총 관객 수",
+    legend_title_text="장르",
+)
+
+st.plotly_chart(fig4, use_container_width=True)
+
+st.markdown("**📌 이 그래프로 알 수 있는 것:**")
+st.info("(여기에 내용을 직접 작성해 주세요.)")
+
+st.divider()
+
+# ==============================================================
+# 그래프 5. 장르별 총 관객 분포 (박스플롯)
+# ==============================================================
+st.header("그래프 5. 장르별 총 관객 분포")
+
+genre_counts_5 = df["genre"].value_counts()
+valid_genres = genre_counts_5[genre_counts_5 >= 10].index
+df_box = df[df["genre"].isin(valid_genres)]
+
+fig5 = px.box(
+    df_box,
+    x="genre",
+    y="total_audi",
+    hover_name="movieNm",
+    points="outliers",
+)
+fig5.update_layout(
+    margin=dict(t=20, b=20, l=20, r=20),
+    xaxis_title="장르 (10편 이상)",
+    yaxis_title="총 관객 수",
+)
+
+st.plotly_chart(fig5, use_container_width=True)
+
+st.markdown("**📌 이 그래프로 알 수 있는 것:**")
+st.info("(여기에 내용을 직접 작성해 주세요.)")
+
+st.divider()
+
+# ==============================================================
 # 다음 그래프를 추가할 구역
-# (아래에 새로운 그래프를 추가할 때는 st.header(\"그래프 4. ...\") 형태로
+# (아래에 새로운 그래프를 추가할 때는 st.header(\"그래프 6. ...\") 형태로
 #  구역을 나누고, 그래프 아래에 '이 그래프로 알 수 있는 것' 자리를 넣어주세요.)
 # ==============================================================
