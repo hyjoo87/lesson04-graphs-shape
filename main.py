@@ -196,7 +196,43 @@ st.info("(여기에 내용을 직접 작성해 주세요.)")
 st.divider()
 
 # ==============================================================
+# 그래프 6. 개봉일 스크린수와 총 관객의 관계 (버블 차트)
+# ==============================================================
+st.header("그래프 6. 개봉일 스크린수와 총 관객의 관계 (첫 주 관객 크기 반영)")
+
+fig6 = px.scatter(
+    df,
+    x="first_scrn",
+    y="total_audi",
+    size="first_week_audi",
+    color="genre",
+    hover_name="movieNm",
+    size_max=40,
+)
+fig6.update_traces(
+    hovertemplate=(
+        "<b>%{hovertext}</b><br>"
+        "개봉일 스크린수: %{x:,}관<br>"
+        "총 관객: %{y:,}명<br>"
+        "첫 주 관객: %{marker.size:,}명<extra></extra>"
+    ),
+)
+fig6.update_layout(
+    margin=dict(t=20, b=20, l=20, r=20),
+    xaxis_title="개봉일 스크린수",
+    yaxis_title="총 관객 수",
+    legend_title_text="장르",
+)
+
+st.plotly_chart(fig6, use_container_width=True)
+
+st.markdown("**📌 이 그래프로 알 수 있는 것:**")
+st.info("(여기에 내용을 직접 작성해 주세요.)")
+
+st.divider()
+
+# ==============================================================
 # 다음 그래프를 추가할 구역
-# (아래에 새로운 그래프를 추가할 때는 st.header(\"그래프 6. ...\") 형태로
+# (아래에 새로운 그래프를 추가할 때는 st.header(\"그래프 7. ...\") 형태로
 #  구역을 나누고, 그래프 아래에 '이 그래프로 알 수 있는 것' 자리를 넣어주세요.)
 # ==============================================================
