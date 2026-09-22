@@ -236,3 +236,11 @@ st.divider()
 # (아래에 새로운 그래프를 추가할 때는 st.header(\"그래프 7. ...\") 형태로
 #  구역을 나누고, 그래프 아래에 '이 그래프로 알 수 있는 것' 자리를 넣어주세요.)
 # ==============================================================
+# ── 그래프 7. 국가에서 장르로 (선버스트) ──
+st.header("7. 국가에서 장르로 (선버스트)")
+df["대표국가"] = df["nation"].str.split("|").str[0]
+counted = (df.groupby(["대표국가", "장르"], as_index=False)
+             .agg(편수=("movieNm", "count")))
+fig7 = px.sunburst(counted, path=["대표국가", "장르"], values="편수")
+st.plotly_chart(fig7, width="stretch")
+st.caption("이 그래프로 알 수 있는 것: (한 문장으로 적어 보세요)")
