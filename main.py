@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 
 # ------------------------------------------------------------
 # 기본 설정
@@ -72,7 +73,31 @@ st.info("(여기에 내용을 직접 작성해 주세요.)")
 st.divider()
 
 # ==============================================================
+# 그래프 2. 장르 안의 영화별 총 관객 (트리맵)
+# ==============================================================
+st.header("그래프 2. 장르 안의 영화별 총 관객")
+
+fig2 = px.treemap(
+    df,
+    path=["genre", "movieNm"],
+    values="total_audi",
+)
+fig2.update_traces(
+    hovertemplate="<b>%{label}</b><br>총 관객: %{value:,}명<extra></extra>",
+)
+fig2.update_layout(
+    margin=dict(t=20, b=20, l=20, r=20),
+)
+
+st.plotly_chart(fig2, use_container_width=True)
+
+st.markdown("**📌 이 그래프로 알 수 있는 것:**")
+st.info("(여기에 내용을 직접 작성해 주세요.)")
+
+st.divider()
+
+# ==============================================================
 # 다음 그래프를 추가할 구역
-# (아래에 새로운 그래프를 추가할 때는 st.header(\"그래프 2. ...\") 형태로
+# (아래에 새로운 그래프를 추가할 때는 st.header(\"그래프 3. ...\") 형태로
 #  구역을 나누고, 그래프 아래에 '이 그래프로 알 수 있는 것' 자리를 넣어주세요.)
 # ==============================================================
